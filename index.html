@@ -83,6 +83,29 @@
         .floater-3 { top: 18%; right: 3%; animation: bounceFloat 4.2s ease-in-out infinite 0.5s; font-size: 2.6rem; }
         .floater-4 { bottom: 18%; left: 3%; animation: bounceFloat 3.5s ease-in-out infinite 1.5s; font-size: 2.8rem; }
 
+        /* 右上角音樂開關按鈕 */
+        .audio-control-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            z-index: 100;
+            background: #FFFFFF;
+            border: 3px solid #FF7E36;
+            color: #FF5722;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .audio-control-btn:hover {
+            transform: scale(1.08);
+            background: #FFF3E0;
+        }
+
         /* 主容器 (100vh 響應式佈局) */
         .app-container {
             position: relative;
@@ -90,7 +113,7 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            padding: 1rem 1.8rem;
+            padding: 0.8rem 1.8rem;
             justify-content: space-between;
         }
 
@@ -98,26 +121,27 @@
         header {
             text-align: center;
             flex-shrink: 0;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
+        /* 主標題：放大 50% (原 2.5rem -> 3.75rem) */
         header h1 {
-            font-size: 2.5rem;
+            font-size: 3.75rem;
             font-weight: 900;
             color: #FF5722;
-            text-shadow: 3px 3px 0px #FFE0B2, 5px 5px 0px rgba(0,0,0,0.05);
-            letter-spacing: 1.5px;
-            margin-bottom: 0.2rem;
+            text-shadow: 4px 4px 0px #FFE0B2, 7px 7px 0px rgba(0,0,0,0.05);
+            letter-spacing: 2px;
+            margin-bottom: 0.1rem;
             display: inline-block;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 800;
             background: rgba(255, 255, 255, 0.85);
             display: inline-block;
-            padding: 4px 20px;
+            padding: 4px 22px;
             border-radius: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
@@ -126,10 +150,10 @@
         .game-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 1.2rem;
+            gap: 1.1rem;
             flex-grow: 1;
             align-items: stretch;
-            max-height: calc(100vh - 140px);
+            max-height: calc(100vh - 150px);
         }
 
         /* 卡片風格 */
@@ -138,7 +162,7 @@
             border-radius: 22px;
             border: 4px solid #FFF;
             box-shadow: 0 10px 25px rgba(255, 126, 54, 0.12);
-            padding: 0.9rem 0.8rem;
+            padding: 0.8rem 0.7rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -155,14 +179,14 @@
         }
 
         .game-icon-wrapper {
-            width: 72px;
-            height: 72px;
+            width: 68px;
+            height: 68px;
             background: linear-gradient(135deg, #FFF9C4 0%, #FFECB3 100%);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             box-shadow: inset 0 -3px 0 rgba(0,0,0,0.08), 0 5px 10px rgba(0,0,0,0.06);
             transition: transform 0.3s ease;
             flex-shrink: 0;
@@ -173,25 +197,25 @@
         }
 
         .game-icon {
-            font-size: 2.6rem;
+            font-size: 2.5rem;
         }
 
-        /* 遊戲名稱：放大 50% (原 1.3rem -> 1.95rem) */
+        /* 遊戲名稱：放大 50% */
         .game-title {
             font-size: 1.95rem;
             font-weight: 900;
             color: #2C3E50;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             line-height: 1.2;
         }
 
-        /* 卡片說明文字：放大 100% (原 0.85rem -> 1.7rem) */
+        /* 卡片說明文字：放大 100% */
         .game-desc {
             font-size: 1.7rem;
             color: #455A64;
-            line-height: 1.35;
+            line-height: 1.3;
             font-weight: 800;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.5rem;
             flex-grow: 1;
             display: flex;
             align-items: center;
@@ -203,13 +227,13 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.45rem;
+            gap: 0.4rem;
             flex-shrink: 0;
         }
 
         .btn {
             width: 100%;
-            padding: 0.6rem 0;
+            padding: 0.55rem 0;
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 900;
@@ -252,8 +276,8 @@
         footer {
             text-align: center;
             flex-shrink: 0;
-            padding-top: 0.3rem;
-            font-size: 0.95rem;
+            padding-top: 0.2rem;
+            font-size: 0.9rem;
             font-weight: 800;
             color: #78909C;
         }
@@ -287,7 +311,7 @@
             width: 94%;
             max-width: 960px;
             border-radius: 28px;
-            padding: 1.8rem 2.2rem;
+            padding: 1.6rem 2.2rem;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
@@ -305,8 +329,8 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 4px dashed #FFE082;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1.2rem;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
         }
 
         .modal-header h2 {
@@ -319,8 +343,8 @@
             background: #FFEBEE;
             border: none;
             color: #EF5350;
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             font-size: 1.8rem;
             font-weight: 900;
@@ -398,8 +422,9 @@
 
         /* 響應式微調 */
         @media (max-width: 1280px) {
-            .game-title { font-size: 1.6rem; }
-            .game-desc { font-size: 1.3rem; }
+            header h1 { font-size: 2.8rem; }
+            .game-title { font-size: 1.5rem; }
+            .game-desc { font-size: 1.25rem; }
         }
         @media (max-width: 1024px) {
             .game-grid { grid-template-columns: repeat(3, 1fr); }
@@ -414,17 +439,17 @@
 </head>
 <body>
 
-    <!-- 背景動態奔跑與飄浮卡通角色 (方向合乎常理) -->
+    <!-- 音訊控制按鈕 -->
+    <button class="audio-control-btn" id="audioBtn" onclick="toggleAudio()">🎵 背景音樂：開啟</button>
+
+    <!-- 背景動態奔跑與飄浮卡通角色 -->
     <div class="cartoon-bg-elements">
-        <!-- 面朝右，從左向右跑 -->
         <div class="runner runner-l2r-1">🏃‍♂️💨 🍞</div>
         <div class="runner runner-l2r-2">🐕💨 🍱</div>
 
-        <!-- 面朝左，從右向左跑 -->
         <div class="runner runner-r2l-1">🏃‍♀️💨 🍎</div>
         <div class="runner runner-r2l-2">🐈💨 🥦</div>
 
-        <!-- 四周跳躍飄浮卡通物資 -->
         <div class="runner floater-1">📦</div>
         <div class="runner floater-2">🥫</div>
         <div class="runner floater-3">🥕</div>
@@ -451,8 +476,8 @@
                 <h2 class="game-title">知識大亂鬥</h2>
                 <p class="game-desc">超刺激競速搶答！拼手速、比正確率，連續答對加分無上限！</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary" onclick="openModal('game01')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                    <button class="btn btn-secondary" onclick="playClickSound(); openModal('game01')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="playClickSound()">立即遊玩</a>
                 </div>
             </article>
 
@@ -464,8 +489,8 @@
                 <h2 class="game-title">裝箱大挑戰</h2>
                 <p class="game-desc">波次快節奏收納！首答觸發 3 秒倒數，看誰是超級裝箱大師！</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary" onclick="openModal('game02')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                    <button class="btn btn-secondary" onclick="playClickSound(); openModal('game02')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="playClickSound()">立即遊玩</a>
                 </div>
             </article>
 
@@ -477,8 +502,8 @@
                 <h2 class="game-title">惜食大富翁</h2>
                 <p class="game-desc">經典大富翁棋盤！邊擲骰子邊學珍惜食物與愛護地球。</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary" onclick="openModal('game03')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                    <button class="btn btn-secondary" onclick="playClickSound(); openModal('game03')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="playClickSound()">立即遊玩</a>
                 </div>
             </article>
 
@@ -490,8 +515,8 @@
                 <h2 class="game-title">物資接接接</h2>
                 <p class="game-desc">動動手手眼協調！搶接好物資，吃到閃電加速得分直接翻倍！</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary" onclick="openModal('game04')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                    <button class="btn btn-secondary" onclick="playClickSound(); openModal('game04')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="playClickSound()">立即遊玩</a>
                 </div>
             </article>
 
@@ -503,8 +528,8 @@
                 <h2 class="game-title">智慧大挑戰</h2>
                 <p class="game-desc">國小學童專屬！現場紅綠二選一站隊，最熱烈的知識大亂鬥！</p>
                 <div class="button-group">
-                    <button class="btn btn-secondary" onclick="openModal('game05')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                    <button class="btn btn-secondary" onclick="playClickSound(); openModal('game05')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="playClickSound()">立即遊玩</a>
                 </div>
             </article>
 
@@ -516,7 +541,7 @@
         </footer>
     </div>
 
-    <!-- 遊戲說明 Modal 視窗 (大字版且無滾條設計) -->
+    <!-- 遊戲說明 Modal 視窗 -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
         <div class="modal-container">
             <div class="modal-header">
@@ -530,6 +555,79 @@
     </div>
 
     <script>
+        // Web Audio API 自動輕快音樂合成器
+        let audioCtx = null;
+        let isMuted = false;
+        let bgmTimer = null;
+
+        const melodyNotes = [
+            261.63, 329.63, 392.00, 523.25, 392.00, 329.63,
+            293.66, 349.23, 440.00, 587.33, 440.00, 349.23,
+            329.63, 392.00, 523.25, 659.25, 523.25, 392.00,
+            392.00, 440.00, 493.88, 523.25, 587.33, 659.25
+        ];
+
+        let noteIdx = 0;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                startBGM();
+            }
+        }
+
+        function playNote(freq, duration, type = 'sine', gainVal = 0.05) {
+            if (!audioCtx || isMuted) return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function startBGM() {
+            if (bgmTimer) clearInterval(bgmTimer);
+            bgmTimer = setInterval(() => {
+                if (!isMuted) {
+                    playNote(melodyNotes[noteIdx], 0.25, 'triangle', 0.04);
+                    noteIdx = (noteIdx + 1) % melodyNotes.length;
+                }
+            }, 300);
+        }
+
+        function toggleAudio() {
+            initAudio();
+            isMuted = !isMuted;
+            const btn = document.getElementById('audioBtn');
+            if (isMuted) {
+                btn.innerText = "🔇 背景音樂：靜音";
+                btn.style.borderColor = "#90A4AE";
+                btn.style.color = "#546E7A";
+            } else {
+                btn.innerText = "🎵 背景音樂：開啟";
+                btn.style.borderColor = "#FF7E36";
+                btn.style.color = "#FF5722";
+                playClickSound();
+            }
+        }
+
+        function playClickSound() {
+            initAudio();
+            playNote(523.25, 0.1, 'sine', 0.08);
+            setTimeout(() => playNote(659.25, 0.12, 'sine', 0.08), 50);
+        }
+
+        // 當用戶第一次點擊頁面時觸發音樂音訊初始化
+        window.addEventListener('click', () => initAudio(), { once: true });
+
+        // 說明 Modal 資料
         const gameRules = {
             game01: {
                 title: "⚔️ 知識大亂鬥 - 遊戲規則與秘笈",
@@ -651,6 +749,7 @@
         }
 
         function closeModal() {
+            playClickSound();
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
