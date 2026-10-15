@@ -1,1 +1,189 @@
-123
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知識與物資遊戲大觀園</title>
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --accent-color: #FF6B6B;
+            --bg-color: #F4F7F6;
+            --card-bg: #FFFFFF;
+            --text-color: #333333;
+            --text-secondary: #666666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #2C3E50;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #4A90E2, #50E3C2);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .game-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 12px;
+        }
+
+        .game-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .play-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .play-btn:hover {
+            background-color: #357ABD;
+        }
+
+        .play-btn:active {
+            transform: scale(0.98);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎮 互動遊戲大觀園</h1>
+        <p>歡迎來到遊戲大觀園！選擇下方任意一款遊戲，立即開始挑戰與學習！</p>
+    </header>
+
+    <main class="game-grid">
+
+        <!-- 遊戲 01 -->
+        <article class="game-card">
+            <div class="game-icon">⚔️</div>
+            <h2 class="game-title">知識大亂鬥</h2>
+            <p class="game-desc">檢驗你的知識儲備！在刺激的問答挑戰中脫穎而出，成為知識之王。</p>
+            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
+        </article>
+
+        <!-- 遊戲 02 -->
+        <article class="game-card">
+            <div class="game-icon">📦</div>
+            <h2 class="game-title">裝箱大挑戰</h2>
+            <p class="game-desc">考驗你的空間規劃與物資整理能力！如何在有限空間內完美收納？</p>
+            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
+        </article>
+
+        <!-- 遊戲 03 -->
+        <article class="game-card">
+            <div class="game-icon">🎲</div>
+            <h2 class="game-title">惜食大富翁</h2>
+            <p class="game-desc">邊玩邊學珍惜食物！經典大富翁玩法，結合愛惜糧食與環保小知識。</p>
+            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
+        </article>
+
+        <!-- 遊戲 04 -->
+        <article class="game-card">
+            <div class="game-icon">🍎</div>
+            <h2 class="game-title">物資接接接</h2>
+            <p class="game-desc">動動手、練反應！快速接住降落的有用物資，獲得高分挑戰極限。</p>
+            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
+        </article>
+
+        <!-- 遊戲 05 -->
+        <article class="game-card">
+            <div class="game-icon">🧠</div>
+            <h2 class="game-title">智慧大挑戰</h2>
+            <p class="game-desc">動腦思考、破解難題！專為提升邏輯與思維能力設計的關卡。</p>
+            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>© 遊戲大觀園 Portal Page. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
