@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知識與物資遊戲大觀園</title>
+    <title>安得烈食物銀行 遊戲大觀園</title>
     <style>
         :root {
-            --primary-color: #4A90E2;
-            --accent-color: #FF6B6B;
-            --bg-color: #F4F7F6;
-            --card-bg: #FFFFFF;
-            --text-color: #333333;
-            --text-secondary: #666666;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --modal-bg: #1e293b;
         }
 
         * {
@@ -20,170 +22,566 @@
             padding: 0;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        /* 鎖定 100vh，禁止出現螢幕滾軸 */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 40px 20px;
+            color: var(--text-primary);
         }
 
+        /* 滿版主容器 */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 1.5rem 2rem;
+            justify-content: space-between;
+        }
+
+        /* 頁首 */
         header {
             text-align: center;
-            max-width: 800px;
-            margin: 0 auto 50px auto;
+            flex-shrink: 0;
+            margin-bottom: 1rem;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: #2C3E50;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
         }
 
         header p {
-            font-size: 1.1rem;
             color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
+        /* 遊戲卡片 5 格佈局 (自動適應螢幕) */
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.2rem;
+            flex-grow: 1;
+            align-items: stretch;
+            max-height: calc(100vh - 160px);
         }
 
+        /* 卡片設計 */
         .game-card {
             background-color: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            padding: 30px 24px;
+            border: 1px solid #334155;
+            padding: 1.2rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden;
-        }
-
-        .game-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, #4A90E2, #50E3C2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-6px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 12px 24px -10px rgba(59, 130, 246, 0.3);
         }
 
         .game-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin: 0.5rem 0;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
 
         .game-title {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 700;
-            color: #2C3E50;
-            margin-bottom: 12px;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
         }
 
         .game-desc {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 25px;
+            line-height: 1.4;
+            margin-bottom: 1rem;
             flex-grow: 1;
+            display: flex;
+            align-items: center;
         }
 
-        .play-btn {
-            display: inline-block;
+        /* 按鈕組 */
+        .button-group {
             width: 100%;
-            padding: 12px 0;
-            background-color: var(--primary-color);
-            color: #FFFFFF;
-            text-decoration: none;
-            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.6rem 0;
             border-radius: 8px;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s, transform 0.1s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
-        .play-btn:hover {
-            background-color: #357ABD;
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
         }
 
-        .play-btn:active {
-            transform: scale(0.98);
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
 
+        .btn-secondary {
+            background-color: #334155;
+            color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #475569;
+            color: #ffffff;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        /* 頁腳 */
         footer {
             text-align: center;
-            margin-top: 60px;
+            flex-shrink: 0;
+            padding-top: 0.8rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        /* 彈窗 Modal 樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background-color: var(--modal-bg);
+            border: 1px solid #475569;
+            width: 90%;
+            max-width: 650px;
+            max-height: 85vh;
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            color: #38bdf8;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #ffffff;
+        }
+
+        /* 說明內容滾動區 */
+        .modal-body {
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background-color: #475569;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            color: #f59e0b;
+            font-weight: 700;
+            margin-top: 0.8rem;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .info-list {
+            list-style: none;
+            padding-left: 0.5rem;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #34d399;
+            font-weight: 600;
+        }
+
+        /* 響應式微調 (低於 1024px 自動切換成彈性排列，仍保持單頁體驗) */
+        @media (max-width: 1024px) {
+            .game-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .game-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>🎮 互動遊戲大觀園</h1>
-        <p>歡迎來到遊戲大觀園！選擇下方任意一款遊戲，立即開始挑戰與學習！</p>
-    </header>
+    <div class="app-container">
+        <!-- 頁首 -->
+        <header>
+            <h1>安得烈食物銀行 遊戲大觀園</h1>
+            <p>點擊「遊戲說明」了解規則與講解技巧，點擊「立即遊玩」開始體驗！</p>
+        </header>
 
-    <main class="game-grid">
+        <!-- 5大遊戲卡片區 -->
+        <main class="game-grid">
 
-        <!-- 遊戲 01 -->
-        <article class="game-card">
-            <div class="game-icon">⚔️</div>
-            <h2 class="game-title">知識大亂鬥</h2>
-            <p class="game-desc">檢驗你的知識儲備！在刺激的問答挑戰中脫穎而出，成為知識之王。</p>
-            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
-        </article>
+            <!-- 01 知識大亂鬥 -->
+            <article class="game-card">
+                <div class="game-icon">⚔️</div>
+                <h2 class="game-title">知識大亂鬥</h2>
+                <p class="game-desc">全方位的知識問答挑戰！考驗成員對食物銀行、珍惜資源與公益知識的理解。</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openModal('game01')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                </div>
+            </article>
 
-        <!-- 遊戲 02 -->
-        <article class="game-card">
-            <div class="game-icon">📦</div>
-            <h2 class="game-title">裝箱大挑戰</h2>
-            <p class="game-desc">考驗你的空間規劃與物資整理能力！如何在有限空間內完美收納？</p>
-            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
-        </article>
+            <!-- 02 裝箱大挑戰 -->
+            <article class="game-card">
+                <div class="game-icon">📦</div>
+                <h2 class="game-title">裝箱大挑戰</h2>
+                <p class="game-desc">模擬安得烈食物箱封裝！在有限空間內將各式物資進行精準且妥善的收納。</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openModal('game02')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                </div>
+            </article>
 
-        <!-- 遊戲 03 -->
-        <article class="game-card">
-            <div class="game-icon">🎲</div>
-            <h2 class="game-title">惜食大富翁</h2>
-            <p class="game-desc">邊玩邊學珍惜食物！經典大富翁玩法，結合愛惜糧食與環保小知識。</p>
-            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
-        </article>
+            <!-- 03 惜食大富翁 -->
+            <article class="game-card">
+                <div class="game-icon">🎲</div>
+                <h2 class="game-title">惜食大富翁</h2>
+                <p class="game-desc">寓教於樂的棋盤地圖遊戲，學習避免食物浪費、認識珍惜食物的各個環節。</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openModal('game03')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="play-btn btn btn-primary">立即遊玩</a>
+                </div>
+            </article>
 
-        <!-- 遊戲 04 -->
-        <article class="game-card">
-            <div class="game-icon">🍎</div>
-            <h2 class="game-title">物資接接接</h2>
-            <p class="game-desc">動動手、練反應！快速接住降落的有用物資，獲得高分挑戰極限。</p>
-            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
-        </article>
+            <!-- 04 物資接接接 -->
+            <article class="game-card">
+                <div class="game-icon">🍎</div>
+                <h2 class="game-title">物資接接接</h2>
+                <p class="game-desc">考驗眼明手快的動作反射！快速分類並接住掉落的合格物資，避開過期品。</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openModal('game04')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                </div>
+            </article>
 
-        <!-- 遊戲 05 -->
-        <article class="game-card">
-            <div class="game-icon">🧠</div>
-            <h2 class="game-title">智慧大挑戰</h2>
-            <p class="game-desc">動腦思考、破解難題！專為提升邏輯與思維能力設計的關卡。</p>
-            <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="play-btn">立即遊玩</a>
-        </article>
+            <!-- 05 智慧大挑戰 -->
+            <article class="game-card">
+                <div class="game-icon">🧠</div>
+                <h2 class="game-title">智慧大挑戰</h2>
+                <p class="game-desc">邏輯與思維推演關卡，挑戰解決糧食分配與物資調度的情境難題。</p>
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="openModal('game05')">遊戲說明</button>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
+                </div>
+            </article>
 
-    </main>
+        </main>
 
-    <footer>
-        <p>© 遊戲大觀園 Portal Page. All rights reserved.</p>
-    </footer>
+        <!-- 頁尾 -->
+        <footer>
+            <p>© 安得烈食物銀行 Andrews Food Bank | 互動宣導遊戲大觀園</p>
+        </footer>
+    </div>
 
+    <!-- 遊戲說明彈窗 Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">遊戲說明</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                <!-- 內容動態由 JavaScript 載入 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 各遊戲詳細說明資料資料庫
+        const gameRules = {
+            game01: {
+                title: "⚔️ 知識大亂鬥 - 遊戲與講解指南",
+                content: `
+                    <div class="section-title">📌 遊戲簡介</div>
+                    <p>透過多選擇題的搶答機制，學習安得烈食物銀行的核心理念、惜食觀念與食物安全知識。</p>
+                    
+                    <div class="section-title">🎮 基本玩法</div>
+                    <ul class="info-list">
+                        <li>玩家看清畫面的問題後，在指定時間內選擇正確答案。</li>
+                        <li>包含單人挑戰或多人群體搶答模式。</li>
+                    </ul>
+
+                    <div class="section-title">💯 得分機制</div>
+                    <ul class="info-list">
+                        <li><span class="highlight">基礎分數：</span>答對一題獲得 100 分。</li>
+                        <li><span class="highlight">速度加成：</span>題目出現後 3 秒內快速答對，額外獲得 20-50 分加成。</li>
+                        <li><span class="highlight">連勝獎勵：</span>連續答對 3 題以上觸發 Combo 獎勵，得分乘以 1.5 倍。</li>
+                    </ul>
+
+                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <ul class="info-list">
+                        <li>每題答題時間限制為 <span class="highlight">15 秒</span>，倒數結束未作答視同放棄。</li>
+                        <li>全場共 10 題，總遊戲時間約 3-5 分鐘。</li>
+                    </ul>
+
+                    <div class="section-title">💡 關主/帶領者講解技巧</div>
+                    <ul class="info-list">
+                        <li><strong>開場語：</strong>「大家知道我們平常吃的食物是怎麼來的嗎？現在我們要來挑戰知識大亂鬥，看誰是我們的惜食智慧王！」</li>
+                        <li><strong>引導重點：</strong>每題結束後的解析時間，關主可特別補充說明安得烈膳糧食物箱如何幫助弱勢兒童，將題目連結到實際公益行為。</li>
+                    </ul>
+                `
+            },
+            game02: {
+                title: "📦 裝箱大挑戰 - 遊戲與講解指南",
+                content: `
+                    <div class="section-title">📌 遊戲簡介</div>
+                    <p>模擬安得烈志工包裝「膳糧包/食物箱」的過程，訓練空間規劃力並認識各類乾糧物資。</p>
+                    
+                    <div class="section-title">🎮 基本玩法</div>
+                    <ul class="info-list">
+                        <li>畫面上方會出現各種形狀與重量的物資（如：米、麵條、罐頭、奶粉）。</li>
+                        <li>拖曳物資放入下方的食物箱中，必須旋轉或精確排列使空間最大化利用。</li>
+                    </ul>
+
+                    <div class="section-title">💯 得分機制</div>
+                    <ul class="info-list">
+                        <li><span class="highlight">裝滿程度：</span>紙箱利用率每增加 10% 即可獲分，達成 100% 裝滿獲得極高分數。</li>
+                        <li><span class="highlight">物資平衡：</span>成功放入營養均衡的指定物資組合（主食+副食+營養品）獲得額外 200 分。</li>
+                        <li><span class="highlight">壓壞扣分：</span>若將重物（如罐頭）壓在易碎物（如餅乾）上方，會扣減品質分數。</li>
+                    </ul>
+
+                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <ul class="info-list">
+                        <li>單關時間限制 <span class="highlight">90 秒</span>，需要在倒數結束前盡可能完成包裝。</li>
+                    </ul>
+
+                    <div class="section-title">💡 關主/帶領者講解技巧</div>
+                    <ul class="info-list">
+                        <li><strong>開場語：</strong>「安得烈的志工每個月都要包裝幾千個食物箱，怎麼裝得又齊又安全是一門大學問，現在換你們來挑戰囉！」</li>
+                        <li><strong>引導重點：</strong>強調「重物放底層、易碎放上層」的裝箱原則，讓參與者體會包裝物資時對收件家庭的愛心與細心。</li>
+                    </ul>
+                `
+            },
+            game03: {
+                title: "🎲 惜食大富翁 - 遊戲與講解指南",
+                content: `
+                    <div class="section-title">📌 遊戲簡介</div>
+                    <p>將大富翁經典玩法融入「惜食、減碳、分享」理念，在隨機事件中學習愛惜資源。</p>
+                    
+                    <div class="section-title">🎮 基本玩法</div>
+                    <ul class="info-list">
+                        <li>點擊骰子前進，停留在不同格子會觸發「惜食小知識」、「生活情境抉擇」或「命運卡」。</li>
+                        <li>面對情境問題時做出正確的惜食選擇以累積「惜食點數」。</li>
+                    </ul>
+
+                    <div class="section-title">💯 得分機制</div>
+                    <ul class="info-list">
+                        <li><span class="highlight">惜食點數：</span>做對愛惜食物的選擇（如：吃多少點多少、打包剩菜）+100 点。</li>
+                        <li><span class="highlight">浪費懲罰：</span>選擇浪費食物行為（如：挑食丟棄、購買過多過期）-50 点。</li>
+                        <li><span class="highlight">通關獎勵：</span>繞行棋盤一圈並抵達終點，額外獲得 300 点。</li>
+                    </ul>
+
+                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <ul class="info-list">
+                        <li>採用 <span class="highlight">回合制</span> 或限制 <span class="highlight">10 分鐘</span> 內看誰獲得最高惜食點數。</li>
+                    </ul>
+
+                    <div class="section-title">💡 關主/帶領者講解技巧</div>
+                    <ul class="info-list">
+                        <li><strong>開場語：</strong>「歡迎來到惜食大富翁！這不是比誰最有錢，而是比誰最懂得珍惜食物！」</li>
+                        <li><strong>引導重點：</strong>當玩家抽到浪費食物的卡片時，適時引導討論：「如果在日常生活中遇到這種情況，我們可以怎麼做更惜食？」</li>
+                    </ul>
+                `
+            },
+            game04: {
+                title: "🍎 物資接接接 - 遊戲與講解指南",
+                content: `
+                    <div class="section-title">📌 遊戲簡介</div>
+                    <p>動態反應遊戲！體驗品管志工的日常，迅速分辨優質物資與壞掉/過期的食物。</p>
+                    
+                    <div class="section-title">🎮 基本玩法</div>
+                    <ul class="info-list">
+                        <li>左右移動底部的食物籃，接住畫面上方掉落的物資。</li>
+                        <li>只接「良好且未過期的食物」，避開「膨罐、破損、過期或壞掉食物」。</li>
+                    </ul>
+
+                    <div class="section-title">💯 得分機制</div>
+                    <ul class="info-list">
+                        <li><span class="highlight">正確接收：</span>成功接住合格物資（罐頭、米包、牛奶）+10 分。</li>
+                        <li><span class="highlight">錯誤接取：</span>接住壞掉或過期食物 -20 分並扣減生命值。</li>
+                        <li><span class="highlight">連續完美：</span>連續接住 15 個合格物資觸發雙倍得分模式。</li>
+                    </ul>
+
+                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <ul class="info-list">
+                        <li>每局限時 <span class="highlight">60 秒</span>，或是擁有 <span class="highlight">3 顆心（生命值）</span>，扣完即提前結束。</li>
+                    </ul>
+
+                    <div class="section-title">💡 關主/帶領者講解技巧</div>
+                    <ul class="info-list">
+                        <li><strong>開場語：</strong>「安得烈對送給小朋友的食物有嚴格把關！大家來當超級品管員，幫忙挑出最好的物資吧！」</li>
+                        <li><strong>引導重點：</strong>提示遊戲中出現的「膨罐罐頭」不能吃，順便宣導食品安全基礎常識。</li>
+                    </ul>
+                `
+            },
+            game05: {
+                title: "🧠 智慧大挑戰 - 遊戲與講解指南",
+                content: `
+                    <div class="section-title">📌 遊戲簡介</div>
+                    <p>高階情境解謎與資源分配遊戲，培養邏輯思考以及對社會邊緣家庭困境的同理心。</p>
+                    
+                    <div class="section-title">🎮 基本玩法</div>
+                    <ul class="info-list">
+                        <li>關卡會給予特定的「受助家庭情境」（例如：有嬰幼兒的單親家庭、患病長者的家庭）。</li>
+                        <li>玩家需在有限預算與物資配額內，配置最合適的食物箱組合。</li>
+                    </ul>
+
+                    <div class="section-title">💯 得分機制</div>
+                    <ul class="info-list">
+                        <li><span class="highlight">需求契合度：</span>提供的物資完全滿足該家庭的營養與生活特殊需求，獲得滿分 100 分。</li>
+                        <li><span class="highlight">資源效益：</span>無浪費任何預算或物資，加獎勵分 50 分。</li>
+                    </ul>
+
+                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <ul class="info-list">
+                        <li>無嚴格倒數，每關建議思考時間 <span class="highlight">2-3 分鐘</span>，重視思考品質而非速度。</li>
+                    </ul>
+
+                    <div class="section-title">💡 關主/帶領者講解技巧</div>
+                    <ul class="info-list">
+                        <li><strong>開場語：</strong>「每一個接受幫助的家庭都有不同的困難。這關需要大家發揮智慧與愛心，為他們量身打造最需要的幫助！」</li>
+                        <li><strong>引導重點：</strong>遊戲後可進行深度分享，讓參與者理解安得烈「客製化食物箱（如嬰兒箱、長青箱）」的用心。</li>
+                    </ul>
+                `
+            }
+        };
+
+        // 開啟彈窗
+        function openModal(gameKey) {
+            const data = gameRules[gameKey];
+            if (data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalContent').innerHTML = data.content;
+                document.getElementById('modalOverlay').classList.add('active');
+            }
+        }
+
+        // 關閉彈窗
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        // 點擊背景遮罩關閉
+        function closeModalOnOverlay(event) {
+            if (event.target.id === 'modalOverlay') {
+                closeModal();
+            }
+        }
+
+        // 支援 Esc 鍵關閉彈窗
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
