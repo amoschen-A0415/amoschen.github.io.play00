@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary-yellow: #FFF9E6;
-            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg: rgba(255, 255, 255, 0.94);
             --accent-orange: #FF7E36;
             --accent-yellow: #FFC107;
             --accent-green: #2ECC71;
@@ -22,18 +22,18 @@
             padding: 0;
         }
 
-        /* 鎖定 100vh，禁止出現螢幕滾條 */
+        /* 鎖定 100vh，全頁禁止出現滾軸 */
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow: hidden !important;
             font-family: "PingFang TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, #FFEFBA 0%, #FFFFFF 50%, #E0F7FA 100%);
             color: var(--text-dark);
             position: relative;
         }
 
-        /* 背景奔跑/飄浮的卡通角色 */
+        /* 背景奔跑與飄浮卡通角色圖層 */
         .cartoon-bg-elements {
             position: absolute;
             top: 0;
@@ -48,36 +48,41 @@
         .runner {
             position: absolute;
             font-size: 2.8rem;
-            filter: drop-shadow(0 8px 10px rgba(0,0,0,0.15));
+            filter: drop-shadow(0 8px 10px rgba(0,0,0,0.12));
             user-select: none;
+            white-space: nowrap;
         }
 
-        /* 奔跑動畫 1: 從左到右 */
-        @keyframes runRight {
-            0% { transform: translateX(-10vw) translateY(0) rotate(0deg); }
-            50% { transform: translateX(55vw) translateY(-15px) rotate(10deg); }
-            100% { transform: translateX(110vw) translateY(0) rotate(-10deg); }
+        /* 1. 從左往右奔跑 (人物面朝右) */
+        @keyframes runLeftToRight {
+            0% { transform: translateX(-12vw) translateY(0) rotate(0deg); }
+            50% { transform: translateX(50vw) translateY(-12px) rotate(6deg); }
+            100% { transform: translateX(112vw) translateY(0) rotate(-6deg); }
         }
 
-        /* 奔跑動畫 2: 從右到左 */
-        @keyframes runLeft {
-            0% { transform: translateX(110vw) translateY(0) scaleX(-1) rotate(0deg); }
-            50% { transform: translateX(45vw) translateY(-20px) scaleX(-1) rotate(-10deg); }
-            100% { transform: translateX(-10vw) translateY(0) scaleX(-1) rotate(10deg); }
+        /* 2. 從右往左奔跑 (人物面朝左) */
+        @keyframes runRightToLeft {
+            0% { transform: translateX(112vw) translateY(0) rotate(0deg); }
+            50% { transform: translateX(50vw) translateY(-15px) rotate(-6deg); }
+            100% { transform: translateX(-12vw) translateY(0) rotate(6deg); }
         }
 
-        /* 飄浮跳躍動畫 */
+        /* 3. 上下歡樂跳躍飄浮 */
         @keyframes bounceFloat {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-18px) scale(1.1); }
+            0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-16px) scale(1.1) rotate(8deg); }
         }
 
-        .runner-1 { top: 3%; animation: runRight 16s linear infinite; }
-        .runner-2 { bottom: 2%; animation: runLeft 18s linear infinite; }
-        .runner-3 { top: 12%; right: 4%; animation: bounceFloat 3.5s ease-in-out infinite; font-size: 3.2rem; }
-        .runner-4 { bottom: 10%; left: 3%; animation: bounceFloat 4s ease-in-out infinite 1s; font-size: 3rem; }
-        .runner-5 { top: 45%; left: 1%; animation: bounceFloat 3s ease-in-out infinite 0.5s; font-size: 2.5rem; }
-        .runner-6 { top: 50%; right: 1%; animation: bounceFloat 3.8s ease-in-out infinite 1.5s; font-size: 2.7rem; }
+        /* 各跑者運動方向與時間配置 (合乎方向邏輯) */
+        .runner-l2r-1 { top: 2%; animation: runLeftToRight 14s linear infinite; }
+        .runner-l2r-2 { bottom: 2%; animation: runLeftToRight 19s linear infinite 3s; }
+        .runner-r2l-1 { top: 12%; animation: runRightToLeft 16s linear infinite 1s; }
+        .runner-r2l-2 { bottom: 8%; animation: runRightToLeft 21s linear infinite 4s; }
+
+        .floater-1 { top: 40%; left: 1.5%; animation: bounceFloat 3.2s ease-in-out infinite; font-size: 3rem; }
+        .floater-2 { top: 45%; right: 1.5%; animation: bounceFloat 3.8s ease-in-out infinite 1s; font-size: 3.2rem; }
+        .floater-3 { top: 18%; right: 3%; animation: bounceFloat 4.2s ease-in-out infinite 0.5s; font-size: 2.6rem; }
+        .floater-4 { bottom: 18%; left: 3%; animation: bounceFloat 3.5s ease-in-out infinite 1.5s; font-size: 2.8rem; }
 
         /* 主容器 (100vh 響應式佈局) */
         .app-container {
@@ -94,26 +99,26 @@
         header {
             text-align: center;
             flex-shrink: 0;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 900;
             color: #FF5722;
-            text-shadow: 3px 3px 0px #FFE0B2, 6px 6px 0px rgba(0,0,0,0.05);
-            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px #FFE0B2, 5px 5px 0px rgba(0,0,0,0.05);
+            letter-spacing: 1.5px;
             margin-bottom: 0.2rem;
             display: inline-block;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             display: inline-block;
-            padding: 4px 16px;
+            padding: 3px 16px;
             border-radius: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
@@ -125,16 +130,16 @@
             gap: 1.2rem;
             flex-grow: 1;
             align-items: stretch;
-            max-height: calc(100vh - 160px);
+            max-height: calc(100vh - 150px);
         }
 
-        /* 活潑卡片風格 */
+        /* 卡片風格 */
         .game-card {
             background: var(--card-bg);
-            border-radius: 24px;
+            border-radius: 22px;
             border: 4px solid #FFF;
-            box-shadow: 0 10px 25px rgba(255, 126, 54, 0.15), inset 0 0 0 2px rgba(255, 200, 100, 0.3);
-            padding: 1.2rem 1rem;
+            box-shadow: 0 10px 25px rgba(255, 126, 54, 0.12);
+            padding: 1.1rem 1rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -145,63 +150,63 @@
         }
 
         .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 18px 35px rgba(255, 87, 34, 0.25);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 32px rgba(255, 87, 34, 0.22);
             border-color: #FFE082;
         }
 
         .game-icon-wrapper {
-            width: 80px;
-            height: 80px;
+            width: 76px;
+            height: 76px;
             background: linear-gradient(135deg, #FFF9C4 0%, #FFECB3 100%);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 0.5rem;
-            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1), 0 6px 12px rgba(0,0,0,0.08);
+            margin-bottom: 0.4rem;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.08), 0 5px 10px rgba(0,0,0,0.06);
             transition: transform 0.3s ease;
         }
 
         .game-card:hover .game-icon-wrapper {
-            transform: rotate(12deg) scale(1.1);
+            transform: rotate(10deg) scale(1.08);
         }
 
         .game-icon {
-            font-size: 3rem;
+            font-size: 2.8rem;
         }
 
         .game-title {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #2C3E50;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .game-desc {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             color: #607D8B;
             line-height: 1.4;
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             flex-grow: 1;
             display: flex;
             align-items: center;
         }
 
-        /* 卡通按鈕樣式 */
+        /* 按鈕風格 */
         .button-group {
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.45rem;
         }
 
         .btn {
             width: 100%;
-            padding: 0.65rem 0;
-            border-radius: 14px;
-            font-size: 0.95rem;
+            padding: 0.6rem 0;
+            border-radius: 12px;
+            font-size: 0.9rem;
             font-weight: 800;
             cursor: pointer;
             border: none;
@@ -209,19 +214,17 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
-            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            box-shadow: 0 4px 0 rgba(0,0,0,0.12);
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #FF7E36 0%, #FF5722 100%);
             color: #FFFFFF;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
         }
 
         .btn-primary:hover {
             background: linear-gradient(135deg, #FF914D 0%, #FF6E40 100%);
             transform: translateY(-2px);
-            box-shadow: 0 6px 0 rgba(0,0,0,0.15);
         }
 
         .btn-secondary {
@@ -237,28 +240,28 @@
 
         .btn:active {
             transform: translateY(2px) !important;
-            box-shadow: 0 2px 0 rgba(0,0,0,0.15) !important;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.12) !important;
         }
 
         /* 頁尾 */
         footer {
             text-align: center;
             flex-shrink: 0;
-            padding-top: 0.5rem;
-            font-size: 0.85rem;
+            padding-top: 0.4rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: #78909C;
         }
 
-        /* 卡漫風格彈窗 Modal */
+        /* 卡漫風格無滾條 Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(44, 62, 80, 0.6);
-            backdrop-filter: blur(4px);
+            background-color: rgba(44, 62, 80, 0.65);
+            backdrop-filter: blur(5px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -276,20 +279,20 @@
         .modal-container {
             background: #FFFFFF;
             border: 5px solid #FFB74D;
-            width: 90%;
-            max-width: 620px;
-            max-height: 82vh;
-            border-radius: 28px;
-            padding: 1.8rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            width: 92%;
+            max-width: 820px;
+            border-radius: 26px;
+            padding: 1.5rem 1.8rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
-            transform: scale(0.8) rotate(-2deg);
+            transform: scale(0.85);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden !important; /* 確保 Modal 本身不出現滾軸 */
         }
 
         .modal-overlay.active .modal-container {
-            transform: scale(1) rotate(0deg);
+            transform: scale(1);
         }
 
         .modal-header {
@@ -297,12 +300,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px dashed #FFE082;
-            padding-bottom: 0.8rem;
-            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
 
         .modal-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 900;
             color: #E65100;
         }
@@ -311,10 +314,10 @@
             background: #FFEBEE;
             border: none;
             color: #EF5350;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
             cursor: pointer;
             display: flex;
@@ -328,44 +331,46 @@
             transform: scale(1.1);
         }
 
-        /* 說明內容滾動區 */
+        /* 說明內容：精確多欄排版，完全禁止滾條 */
         .modal-body {
-            overflow-y: auto;
-            padding-right: 0.5rem;
+            overflow: hidden !important;
             color: #37474F;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.88rem;
+            line-height: 1.5;
         }
 
-        .modal-body::-webkit-scrollbar {
-            width: 8px;
+        .modal-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
-        .modal-body::-webkit-scrollbar-thumb {
-            background-color: #FFB74D;
-            border-radius: 10px;
+        .modal-box {
+            background: #FFFDE7;
+            border: 2px solid #FFE082;
+            border-radius: 14px;
+            padding: 0.8rem;
         }
 
         .section-title {
             color: #D84315;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            margin-top: 0.9rem;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
 
         .info-list {
             list-style: none;
-            padding-left: 0.3rem;
+            padding-left: 0.2rem;
         }
 
         .info-list li {
             position: relative;
-            padding-left: 1.3rem;
-            margin-bottom: 0.4rem;
+            padding-left: 1.1rem;
+            margin-bottom: 0.3rem;
             font-weight: 600;
         }
 
@@ -374,19 +379,21 @@
             position: absolute;
             left: 0;
             color: #FFB300;
+            font-size: 0.8rem;
         }
 
         .highlight {
             color: #E65100;
             font-weight: 800;
-            background: #FFF8E1;
-            padding: 2px 6px;
-            border-radius: 6px;
+            background: #FFF3E0;
+            padding: 1px 5px;
+            border-radius: 4px;
         }
 
         /* 響應式調整 */
         @media (max-width: 1024px) {
             .game-grid { grid-template-columns: repeat(3, 1fr); }
+            .modal-grid-layout { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .game-grid { grid-template-columns: repeat(2, 1fr); }
@@ -395,14 +402,21 @@
 </head>
 <body>
 
-    <!-- 背景動態奔跑與飄浮卡通角色 -->
+    <!-- 背景動態奔跑與飄浮卡通角色 (方向合乎常理) -->
     <div class="cartoon-bg-elements">
-        <div class="runner runner-1">🏃‍♂️💨 🍞</div>
-        <div class="runner runner-2">🏃‍♀️💨 🍱</div>
-        <div class="runner runner-3">🍎</div>
-        <div class="runner runner-4">📦</div>
-        <div class="runner runner-5">🥦</div>
-        <div class="runner runner-6">🥕</div>
+        <!-- 面朝右，從左向右跑 -->
+        <div class="runner runner-l2r-1">🏃‍♂️💨 🍞</div>
+        <div class="runner runner-l2r-2">🐕💨 🍱</div>
+
+        <!-- 面朝左，從右向左跑 -->
+        <div class="runner runner-r2l-1">🏃‍♀️💨 🍎</div>
+        <div class="runner runner-r2l-2">🐈💨 🥦</div>
+
+        <!-- 四周跳躍飄浮卡通物資 -->
+        <div class="runner floater-1">📦</div>
+        <div class="runner floater-2">🥫</div>
+        <div class="runner floater-3">🥕</div>
+        <div class="runner floater-4">🕊️</div>
     </div>
 
     <!-- 主容器 (全螢幕無滾條) -->
@@ -490,7 +504,7 @@
         </footer>
     </div>
 
-    <!-- 遊戲說明 Modal 視窗 -->
+    <!-- 遊戲說明 Modal 視窗 (完全無滾條設計) -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
         <div class="modal-container">
             <div class="modal-header">
@@ -506,136 +520,112 @@
     <script>
         const gameRules = {
             game01: {
-                title: "⚔️ 知識大亂鬥 - 規則說明",
+                title: "⚔️ 知識大亂鬥 - 遊戲規則與秘笈",
                 content: `
-                    <div class="section-title">📌 遊戲簡介</div>
-                    <p>多人群體競速搶答遊戲，考驗參與者的答題正確率、手速與連續答對的穩定度。</p>
-                    
-                    <div class="section-title">💯 分數計算機制</div>
-                    <ul class="info-list">
-                        <li><span class="highlight">基礎分數：</span>每答對 1 題獲得 <span class="highlight">20 分</span>。</li>
-                        <li><span class="highlight">搶答速度加碼：</span>
-                            <ul>
-                                <li>第 1 個答對：額外 <span class="highlight">+10 分</span></li>
-                                <li>第 2 個答對：額外 <span class="highlight">+9 分</span></li>
-                                <li>依此類推，遞減至第 10 個答對者（額外 +1 分）。</li>
+                    <div class="modal-grid-layout">
+                        <div class="modal-box">
+                            <div class="section-title">💯 分數計算機制</div>
+                            <ul class="info-list">
+                                <li>答對基礎分：每題 <span class="highlight">20 分</span></li>
+                                <li>前10名搶答加分：第1個答對 <span class="highlight">+10分</span>，第2個 <span class="highlight">+9分</span> ... 遞減至第10個 <span class="highlight">+1分</span></li>
+                                <li>連勝無上限：連勝1題 <span class="highlight">+1分</span>，連勝2題 <span class="highlight">+2分</span>，依此類推無上限！</li>
                             </ul>
-                        </li>
-                        <li><span class="highlight">連勝無上限加分：</span>
-                            <ul>
-                                <li>連勝 1 題：額外 <span class="highlight">+1 分</span></li>
-                                <li>連勝 2 題：額外 <span class="highlight">+2 分</span></li>
-                                <li>依此類推，連勝越多加分越高，無上限！</li>
+                        </div>
+                        <div class="modal-box">
+                            <div class="section-title">⏱️ 秒數與帶領秘笈</div>
+                            <ul class="info-list">
+                                <li><span class="highlight">初賽秒數：</span>首個答案回傳即開始倒數 <span class="highlight">5 秒</span></li>
+                                <li><span class="highlight">決賽秒數：</span>首個答案回傳即開始倒數 <span class="highlight">3 秒</span></li>
+                                <li><span class="highlight">帶領提示：</span>提醒學員「手速」與「連勝」是高分關鍵，首答一出時間飛快！</li>
                             </ul>
-                        </li>
-                    </ul>
-
-                    <div class="section-title">⏱️ 答題秒數機制</div>
-                    <ul class="info-list">
-                        <li><span class="highlight">初賽階段：</span>當第一個答案回傳時（不論正確與否），即刻觸發倒數計時 <span class="highlight">5 秒</span>。</li>
-                        <li><span class="highlight">決賽階段：</span>當第一個答案回傳時（不論正確與否），即刻觸發倒數計時 <span class="highlight">3 秒</span>。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主帶領技巧</div>
-                    <ul class="info-list">
-                        <li>提醒學員「速度」與「連續答對」是獲勝關鍵！只要有人送出第一個答案，倒數就會開始，要抓緊時間！</li>
-                    </ul>
+                        </div>
+                    </div>
                 `
             },
             game02: {
-                title: "📦 裝箱大挑戰 - 規則說明",
+                title: "📦 裝箱大挑戰 - 遊戲規則與秘笈",
                 content: `
-                    <div class="section-title">📌 遊戲簡介</div>
-                    <p>快節奏物資裝箱判斷挑戰，以波次（Wave）進行搶答與收納決策。</p>
-                    
-                    <div class="section-title">💯 分數計算機制</div>
-                    <ul class="info-list">
-                        <li><span class="highlight">基礎分數：</span>每答對 1 題獲得 <span class="highlight">20 分</span>。</li>
-                        <li><span class="highlight">搶答速度加碼：</span>
-                            <ul>
-                                <li>第 1 個答對：額外 <span class="highlight">+10 分</span></li>
-                                <li>第 2 個答對：額外 <span class="highlight">+9 分</span></li>
-                                <li>依此類推，遞減至第 10 個答對者（額外 +1 分）。</li>
+                    <div class="modal-grid-layout">
+                        <div class="modal-box">
+                            <div class="section-title">💯 分數計算機制</div>
+                            <ul class="info-list">
+                                <li>答對基礎分：每題 <span class="highlight">20 分</span></li>
+                                <li>前10名搶答加分：第1個答對 <span class="highlight">+10分</span>，第2個 <span class="highlight">+9分</span> ... 遞減至第10個 <span class="highlight">+1分</span></li>
+                                <li>連勝無上限：連勝1題 <span class="highlight">+1分</span>，連勝2題 <span class="highlight">+2分</span> ... 無上限！</li>
                             </ul>
-                        </li>
-                        <li><span class="highlight">連勝無上限加分：</span>
-                            <ul>
-                                <li>連勝 1 題：額外 <span class="highlight">+1 分</span></li>
-                                <li>連勝 2 題：額外 <span class="highlight">+2 分</span></li>
-                                <li>依此類推，無上限！</li>
+                        </div>
+                        <div class="modal-box">
+                            <div class="section-title">⏱️ 秒數與帶領秘笈</div>
+                            <ul class="info-list">
+                                <li><span class="highlight">波次倒數：</span>每波第一個答案回傳後，立即開始倒數 <span class="highlight">3 秒</span></li>
+                                <li><span class="highlight">帶領提示：</span>反應時間極短！訓練大家精準且快速地進行物資收納決策！</li>
                             </ul>
-                        </li>
-                    </ul>
-
-                    <div class="section-title">⏱️ 答題秒數機制</div>
-                    <ul class="info-list">
-                        <li>每波（Wave）挑戰中，當第一個答案回傳時（不論正確與否），系統將立即開始倒數計時 <span class="highlight">3 秒</span>。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主帶領技巧</div>
-                    <ul class="info-list">
-                        <li>強調每一波的反應時間非常短暫（第一個答案出現後僅 3 秒），需要專注並快速完成裝箱判斷！</li>
-                    </ul>
+                        </div>
+                    </div>
                 `
             },
             game03: {
-                title: "🎲 惜食大富翁 - 規則說明",
+                title: "🎲 惜食大富翁 - 遊戲規則與秘笈",
                 content: `
-                    <div class="section-title">📌 遊戲簡介</div>
-                    <p>傳統型大富翁棋盤遊戲，融合珍惜食物、環境永續與資源分享等議題。</p>
-                    
-                    <div class="section-title">🎮 遊戲規則</div>
-                    <ul class="info-list">
-                        <li>採用傳統大富翁機制（擲骰子、在地圖格子上移動、觸發各種事件與抉擇）。</li>
-                        <li>詳細情境與具體玩法，請帶領者與玩家進入遊戲內自行探索體驗。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主帶領技巧</div>
-                    <ul class="info-list">
-                        <li>鼓勵學員在遊玩過程中仔細閱讀格子上的惜食資訊與地圖事件，並討論日常生活中如何愛惜糧食。</li>
-                    </ul>
+                    <div class="modal-grid-layout">
+                        <div class="modal-box">
+                            <div class="section-title">🎮 遊戲特色</div>
+                            <ul class="info-list">
+                                <li>採用 <span class="highlight">傳統型大富翁</span> 經典機制。</li>
+                                <li>包含擲骰子前進、地圖格子事件、惜食問答與生活抉擇。</li>
+                            </ul>
+                        </div>
+                        <div class="modal-box">
+                            <div class="section-title">💡 探索與帶領提示</div>
+                            <ul class="info-list">
+                                <li>請玩家與帶領者直接進入遊戲自行探索體驗。</li>
+                                <li>引導學員討論地圖上的惜食小知識，融入愛惜資源觀念。</li>
+                            </ul>
+                        </div>
+                    </div>
                 `
             },
             game04: {
-                title: "🍎 物資接接接 - 規則說明",
+                title: "🍎 物資接接接 - 遊戲規則與秘笈",
                 content: `
-                    <div class="section-title">📌 遊戲簡介</div>
-                    <p>考驗反應與手眼協調的動作型遊戲，進行物資接取與分類。</p>
-                    
-                    <div class="section-title">💯 分數計算機制</div>
-                    <ul class="info-list">
-                        <li><span class="highlight">正確物資：</span>成功接住合適物資 <span class="highlight">+2 分</span>。</li>
-                        <li><span class="highlight">不合適物資：</span>接住不合適或壞掉的物資 <span class="highlight">-1 分</span>。</li>
-                        <li><span class="highlight">閃電加速翻倍機制：</span>
-                            <ul>
-                                <li>接住帶有閃電符號的加速物資會提升下降速度。</li>
-                                <li>速度每加快 <span class="highlight">20%</span>，後續得分將會進行 <span class="highlight">翻倍計算</span>！</li>
+                    <div class="modal-grid-layout">
+                        <div class="modal-box">
+                            <div class="section-title">💯 分數計算機制</div>
+                            <ul class="info-list">
+                                <li>正確物資：接住良好物資 <span class="highlight">+2 分</span></li>
+                                <li>不合適物資：接住壞掉/不宜物資 <span class="highlight">-1 分</span></li>
                             </ul>
-                        </li>
-                    </ul>
-
-                    <div class="section-title">💡 關主帶領技巧</div>
-                    <ul class="info-list">
-                        <li>提示玩家「閃電物資」雖然會讓物資掉落速度變快，但也是創造極高分數翻倍的最佳契機！</li>
-                    </ul>
+                        </div>
+                        <div class="modal-box">
+                            <div class="section-title">⚡ 閃電加速翻倍機制</div>
+                            <ul class="info-list">
+                                <li>接住閃電物資會讓掉落速度變快！</li>
+                                <li>速度每加快 <span class="highlight">20%</span>，得分將進行 <span class="highlight">翻倍計算</span>！</li>
+                                <li><span class="highlight">帶領提示：</span>速度越快得分越高，是拉開比分的關鍵！</li>
+                            </ul>
+                        </div>
+                    </div>
                 `
             },
             game05: {
-                title: "🧠 智慧大挑戰 - 規則說明",
+                title: "🧠 智慧大挑戰 - 遊戲規則與秘笈",
                 content: `
-                    <div class="section-title">📌 遊戲簡介與形式</div>
-                    <p>專為 <span class="highlight">國小學童</span> 設計的實體與線上互動遊戲。</p>
-                    
-                    <div class="section-title">🎮 遊戲玩法</div>
-                    <ul class="info-list">
-                        <li>採用 <span class="highlight">紅綠現場站隊</span> 的互動方式進行知識大亂鬥。</li>
-                        <li>題目呈現後，學員依據自己的判斷，現場移動站隊至紅區或綠區進行二選一回答，現場氣氛熱烈且富教育意義。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主帶領技巧</div>
-                    <ul class="info-list">
-                        <li>適合現場帶活動使用！關主可於兩隊站定後開獎，並針對題目進行簡短的教育宣導與解說。</li>
-                    </ul>
+                    <div class="modal-grid-layout">
+                        <div class="modal-box">
+                            <div class="section-title">🧒 專屬對象與形式</div>
+                            <ul class="info-list">
+                                <li>專為 <span class="highlight">國小學童</span> 設計的宣導互動遊戲。</li>
+                                <li>結合線上題目與現場實體動作。</li>
+                            </ul>
+                        </div>
+                        <div class="modal-box">
+                            <div class="section-title">🚩 現場紅綠站隊玩法</div>
+                            <ul class="info-list">
+                                <li>採用 <span class="highlight">紅綠現場站隊</span> 的互動方式進行知識大亂鬥。</li>
+                                <li>學員看題後選擇站至「紅區」或「綠區」，帶領者現場開獎解說！</li>
+                            </ul>
+                        </div>
+                    </div>
                 `
             }
         };
