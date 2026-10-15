@@ -22,7 +22,7 @@
             padding: 0;
         }
 
-        /* 鎖定 100vh，禁止出現螢幕滾軸 */
+        /* 鎖定 100vh，禁止頁面出現螢幕滾軸 */
         html, body {
             width: 100%;
             height: 100%;
@@ -63,7 +63,7 @@
             font-size: 0.95rem;
         }
 
-        /* 遊戲卡片 5 格佈局 (自動適應螢幕) */
+        /* 遊戲卡片 5 格佈局 */
         .game-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -162,7 +162,7 @@
             transform: scale(0.97);
         }
 
-        /* 頁腳 */
+        /* 頁尾 */
         footer {
             text-align: center;
             flex-shrink: 0;
@@ -293,7 +293,7 @@
             font-weight: 600;
         }
 
-        /* 響應式微調 (低於 1024px 自動切換成彈性排列，仍保持單頁體驗) */
+        /* 響應式微調 */
         @media (max-width: 1024px) {
             .game-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -312,7 +312,7 @@
         <!-- 頁首 -->
         <header>
             <h1>安得烈食物銀行 遊戲大觀園</h1>
-            <p>點擊「遊戲說明」了解規則與講解技巧，點擊「立即遊玩」開始體驗！</p>
+            <p>點擊「遊戲說明」觀看詳細規則與得分機制，點擊「立即遊玩」開始體驗！</p>
         </header>
 
         <!-- 5大遊戲卡片區 -->
@@ -322,7 +322,7 @@
             <article class="game-card">
                 <div class="game-icon">⚔️</div>
                 <h2 class="game-title">知識大亂鬥</h2>
-                <p class="game-desc">全方位的知識問答挑戰！考驗成員對食物銀行、珍惜資源與公益知識的理解。</p>
+                <p class="game-desc">即時競速搶答！考驗知識儲備、答題速度與連續答對的穩定度。</p>
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="openModal('game01')">遊戲說明</button>
                     <a href="https://amoschen-a0415.github.io/amoschen.github.io.play01/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
@@ -333,7 +333,7 @@
             <article class="game-card">
                 <div class="game-icon">📦</div>
                 <h2 class="game-title">裝箱大挑戰</h2>
-                <p class="game-desc">模擬安得烈食物箱封裝！在有限空間內將各式物資進行精準且妥善的收納。</p>
+                <p class="game-desc">波次快節奏挑戰！比拼物資裝箱的判斷速度與連續答對機制。</p>
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="openModal('game02')">遊戲說明</button>
                     <a href="https://amoschen-a0415.github.io/amoschen.github.io.play02/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
@@ -344,10 +344,10 @@
             <article class="game-card">
                 <div class="game-icon">🎲</div>
                 <h2 class="game-title">惜食大富翁</h2>
-                <p class="game-desc">寓教於樂的棋盤地圖遊戲，學習避免食物浪費、認識珍惜食物的各個環節。</p>
+                <p class="game-desc">傳統大富翁棋盤玩法，融入珍惜糧食與環保小知識。</p>
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="openModal('game03')">遊戲說明</button>
-                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="play-btn btn btn-primary">立即遊玩</a>
+                    <a href="https://amoschen-a0415.github.io/amoschen.github.io.play03/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
                 </div>
             </article>
 
@@ -355,7 +355,7 @@
             <article class="game-card">
                 <div class="game-icon">🍎</div>
                 <h2 class="game-title">物資接接接</h2>
-                <p class="game-desc">考驗眼明手快的動作反射！快速分類並接住掉落的合格物資，避開過期品。</p>
+                <p class="game-desc">考驗手眼協調！快速接住合格物資，避開壞掉物資並挑戰閃電加速翻倍！</p>
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="openModal('game04')">遊戲說明</button>
                     <a href="https://amoschen-a0415.github.io/amoschen.github.io.play04/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
@@ -366,7 +366,7 @@
             <article class="game-card">
                 <div class="game-icon">🧠</div>
                 <h2 class="game-title">智慧大挑戰</h2>
-                <p class="game-desc">邏輯與思維推演關卡，挑戰解決糧食分配與物資調度的情境難題。</p>
+                <p class="game-desc">專為國小學童設計！採用紅綠現場站隊互動形式進行知識大亂鬥。</p>
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="openModal('game05')">遊戲說明</button>
                     <a href="https://amoschen-a0415.github.io/amoschen.github.io.play05/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">立即遊玩</a>
@@ -389,172 +389,148 @@
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body" id="modalContent">
-                <!-- 內容動態由 JavaScript 載入 -->
+                <!-- 內容由 JavaScript 動態載入 -->
             </div>
         </div>
     </div>
 
     <script>
-        // 各遊戲詳細說明資料資料庫
         const gameRules = {
             game01: {
-                title: "⚔️ 知識大亂鬥 - 遊戲與講解指南",
+                title: "⚔️ 知識大亂鬥 - 規則與講解指南",
                 content: `
                     <div class="section-title">📌 遊戲簡介</div>
-                    <p>透過多選擇題的搶答機制，學習安得烈食物銀行的核心理念、惜食觀念與食物安全知識。</p>
+                    <p>多人群體競速搶答遊戲，考驗參與者的答題正確率、手速與連續答對的穩定度。</p>
                     
-                    <div class="section-title">🎮 基本玩法</div>
+                    <div class="section-title">💯 分數計算機制</div>
                     <ul class="info-list">
-                        <li>玩家看清畫面的問題後，在指定時間內選擇正確答案。</li>
-                        <li>包含單人挑戰或多人群體搶答模式。</li>
+                        <li><span class="highlight">基礎分數：</span>每答對 1 題獲得 <span class="highlight">20 分</span>。</li>
+                        <li><span class="highlight">搶答速度加碼：</span>
+                            <ul>
+                                <li>第 1 個答對：額外 <span class="highlight">+10 分</span></li>
+                                <li>第 2 個答對：額外 <span class="highlight">+9 分</span></li>
+                                <li>依此類推，遞減至第 10 個答對者（額外 +1 分）。</li>
+                            </ul>
+                        </li>
+                        <li><span class="highlight">連勝無上限加分：</span>
+                            <ul>
+                                <li>連勝 1 題：額外 <span class="highlight">+1 分</span></li>
+                                <li>連勝 2 題：額外 <span class="highlight">+2 分</span></li>
+                                <li>依此類推，連勝越多加分越高，無上限！</li>
+                            </ul>
+                        </li>
                     </ul>
 
-                    <div class="section-title">💯 得分機制</div>
+                    <div class="section-title">⏱️ 答題秒數機制</div>
                     <ul class="info-list">
-                        <li><span class="highlight">基礎分數：</span>答對一題獲得 100 分。</li>
-                        <li><span class="highlight">速度加成：</span>題目出現後 3 秒內快速答對，額外獲得 20-50 分加成。</li>
-                        <li><span class="highlight">連勝獎勵：</span>連續答對 3 題以上觸發 Combo 獎勵，得分乘以 1.5 倍。</li>
+                        <li><span class="highlight">初賽階段：</span>當第一個答案回傳時（不論正確與否），即刻觸發倒數計時 <span class="highlight">5 秒</span>。</li>
+                        <li><span class="highlight">決賽階段：</span>當第一個答案回傳時（不論正確與否），即刻觸發倒數計時 <span class="highlight">3 秒</span>。</li>
                     </ul>
 
-                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <div class="section-title">💡 關主帶領與講解技巧</div>
                     <ul class="info-list">
-                        <li>每題答題時間限制為 <span class="highlight">15 秒</span>，倒數結束未作答視同放棄。</li>
-                        <li>全場共 10 題，總遊戲時間約 3-5 分鐘。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主/帶領者講解技巧</div>
-                    <ul class="info-list">
-                        <li><strong>開場語：</strong>「大家知道我們平常吃的食物是怎麼來的嗎？現在我們要來挑戰知識大亂鬥，看誰是我們的惜食智慧王！」</li>
-                        <li><strong>引導重點：</strong>每題結束後的解析時間，關主可特別補充說明安得烈膳糧食物箱如何幫助弱勢兒童，將題目連結到實際公益行為。</li>
+                        <li><strong>帶領提示：</strong>提醒學員「速度」與「連續答對」是獲勝關鍵！只要有人送出第一個答案，倒數就會開始，因此心動不如馬上行動。</li>
                     </ul>
                 `
             },
             game02: {
-                title: "📦 裝箱大挑戰 - 遊戲與講解指南",
+                title: "📦 裝箱大挑戰 - 規則與講解指南",
                 content: `
                     <div class="section-title">📌 遊戲簡介</div>
-                    <p>模擬安得烈志工包裝「膳糧包/食物箱」的過程，訓練空間規劃力並認識各類乾糧物資。</p>
+                    <p>快節奏物資裝箱判斷挑戰，以波次（Wave）進行搶答與收納決策。</p>
                     
-                    <div class="section-title">🎮 基本玩法</div>
+                    <div class="section-title">💯 分數計算機制</div>
                     <ul class="info-list">
-                        <li>畫面上方會出現各種形狀與重量的物資（如：米、麵條、罐頭、奶粉）。</li>
-                        <li>拖曳物資放入下方的食物箱中，必須旋轉或精確排列使空間最大化利用。</li>
+                        <li><span class="highlight">基礎分數：</span>每答對 1 題獲得 <span class="highlight">20 分</span>。</li>
+                        <li><span class="highlight">搶答速度加碼：</span>
+                            <ul>
+                                <li>第 1 個答對：額外 <span class="highlight">+10 分</span></li>
+                                <li>第 2 個答對：額外 <span class="highlight">+9 分</span></li>
+                                <li>依此類推，遞減至第 10 個答對者（額外 +1 分）。</li>
+                            </ul>
+                        </li>
+                        <li><span class="highlight">連勝無上限加分：</span>
+                            <ul>
+                                <li>連勝 1 題：額外 <span class="highlight">+1 分</span></li>
+                                <li>連勝 2 題：額外 <span class="highlight">+2 分</span></li>
+                                <li>依此類推，無上限！</li>
+                            </ul>
+                        </li>
                     </ul>
 
-                    <div class="section-title">💯 得分機制</div>
+                    <div class="section-title">⏱️ 答題秒數機制</div>
                     <ul class="info-list">
-                        <li><span class="highlight">裝滿程度：</span>紙箱利用率每增加 10% 即可獲分，達成 100% 裝滿獲得極高分數。</li>
-                        <li><span class="highlight">物資平衡：</span>成功放入營養均衡的指定物資組合（主食+副食+營養品）獲得額外 200 分。</li>
-                        <li><span class="highlight">壓壞扣分：</span>若將重物（如罐頭）壓在易碎物（如餅乾）上方，會扣減品質分數。</li>
+                        <li>每波（Wave）挑戰中，當第一個答案回傳時（不論正確與否），系統將立即開始倒數計時 <span class="highlight">3 秒</span>。</li>
                     </ul>
 
-                    <div class="section-title">⏱️ 讀秒機制</div>
+                    <div class="section-title">💡 關主帶領與講解技巧</div>
                     <ul class="info-list">
-                        <li>單關時間限制 <span class="highlight">90 秒</span>，需要在倒數結束前盡可能完成包裝。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主/帶領者講解技巧</div>
-                    <ul class="info-list">
-                        <li><strong>開場語：</strong>「安得烈的志工每個月都要包裝幾千個食物箱，怎麼裝得又齊又安全是一門大學問，現在換你們來挑戰囉！」</li>
-                        <li><strong>引導重點：</strong>強調「重物放底層、易碎放上層」的裝箱原則，讓參與者體會包裝物資時對收件家庭的愛心與細心。</li>
+                        <li><strong>帶領提示：</strong>強調每一波的反應時間非常短暫（第一個答案出現後僅 3 秒），需要專注並快速完成裝箱判斷！</li>
                     </ul>
                 `
             },
             game03: {
-                title: "🎲 惜食大富翁 - 遊戲與講解指南",
+                title: "🎲 惜食大富翁 - 規則與講解指南",
                 content: `
                     <div class="section-title">📌 遊戲簡介</div>
-                    <p>將大富翁經典玩法融入「惜食、減碳、分享」理念，在隨機事件中學習愛惜資源。</p>
+                    <p>傳統型大富翁棋盤遊戲，融合珍惜食物、環境永續與資源分享等議題。</p>
                     
-                    <div class="section-title">🎮 基本玩法</div>
+                    <div class="section-title">🎮 遊戲規則</div>
                     <ul class="info-list">
-                        <li>點擊骰子前進，停留在不同格子會觸發「惜食小知識」、「生活情境抉擇」或「命運卡」。</li>
-                        <li>面對情境問題時做出正確的惜食選擇以累積「惜食點數」。</li>
+                        <li>採用傳統大富翁機制（擲骰子、在地圖格子上移動、觸發各種事件與抉擇）。</li>
+                        <li>詳細情境與具體玩法，請帶領者與玩家進入遊戲內自行探索體驗。</li>
                     </ul>
 
-                    <div class="section-title">💯 得分機制</div>
+                    <div class="section-title">💡 關主帶領與講解技巧</div>
                     <ul class="info-list">
-                        <li><span class="highlight">惜食點數：</span>做對愛惜食物的選擇（如：吃多少點多少、打包剩菜）+100 点。</li>
-                        <li><span class="highlight">浪費懲罰：</span>選擇浪費食物行為（如：挑食丟棄、購買過多過期）-50 点。</li>
-                        <li><span class="highlight">通關獎勵：</span>繞行棋盤一圈並抵達終點，額外獲得 300 点。</li>
-                    </ul>
-
-                    <div class="section-title">⏱️ 讀秒機制</div>
-                    <ul class="info-list">
-                        <li>採用 <span class="highlight">回合制</span> 或限制 <span class="highlight">10 分鐘</span> 內看誰獲得最高惜食點數。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主/帶領者講解技巧</div>
-                    <ul class="info-list">
-                        <li><strong>開場語：</strong>「歡迎來到惜食大富翁！這不是比誰最有錢，而是比誰最懂得珍惜食物！」</li>
-                        <li><strong>引導重點：</strong>當玩家抽到浪費食物的卡片時，適時引導討論：「如果在日常生活中遇到這種情況，我們可以怎麼做更惜食？」</li>
+                        <li><strong>帶領提示：</strong>鼓勵學員在遊玩過程中仔細閱讀格子上的惜食資訊與地圖事件，並討論日常生活中如何愛惜糧食。</li>
                     </ul>
                 `
             },
             game04: {
-                title: "🍎 物資接接接 - 遊戲與講解指南",
+                title: "🍎 物資接接接 - 規則與講解指南",
                 content: `
                     <div class="section-title">📌 遊戲簡介</div>
-                    <p>動態反應遊戲！體驗品管志工的日常，迅速分辨優質物資與壞掉/過期的食物。</p>
+                    <p>考驗反應與手眼協調的動作型遊戲，進行物資接取與分類。</p>
                     
-                    <div class="section-title">🎮 基本玩法</div>
+                    <div class="section-title">💯 分數計算機制</div>
                     <ul class="info-list">
-                        <li>左右移動底部的食物籃，接住畫面上方掉落的物資。</li>
-                        <li>只接「良好且未過期的食物」，避開「膨罐、破損、過期或壞掉食物」。</li>
+                        <li><span class="highlight">正確物資：</span>成功接住合適物資 <span class="highlight">+2 分</span>。</li>
+                        <li><span class="highlight">不合適物資：</span>接住不合適或壞掉的物資 <span class="highlight">-1 分</span>。</li>
+                        <li><span class="highlight">閃電加速翻倍機制：</span>
+                            <ul>
+                                <li>接住帶有閃電符號的加速物資會提升下降速度。</li>
+                                <li>速度每加快 <span class="highlight">20%</span>，後續得分將會進行 <span class="highlight">翻倍計算</span>！</li>
+                            </ul>
+                        </li>
                     </ul>
 
-                    <div class="section-title">💯 得分機制</div>
+                    <div class="section-title">💡 關主帶領與講解技巧</div>
                     <ul class="info-list">
-                        <li><span class="highlight">正確接收：</span>成功接住合格物資（罐頭、米包、牛奶）+10 分。</li>
-                        <li><span class="highlight">錯誤接取：</span>接住壞掉或過期食物 -20 分並扣減生命值。</li>
-                        <li><span class="highlight">連續完美：</span>連續接住 15 個合格物資觸發雙倍得分模式。</li>
-                    </ul>
-
-                    <div class="section-title">⏱️ 讀秒機制</div>
-                    <ul class="info-list">
-                        <li>每局限時 <span class="highlight">60 秒</span>，或是擁有 <span class="highlight">3 顆心（生命值）</span>，扣完即提前結束。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主/帶領者講解技巧</div>
-                    <ul class="info-list">
-                        <li><strong>開場語：</strong>「安得烈對送給小朋友的食物有嚴格把關！大家來當超級品管員，幫忙挑出最好的物資吧！」</li>
-                        <li><strong>引導重點：</strong>提示遊戲中出現的「膨罐罐頭」不能吃，順便宣導食品安全基礎常識。</li>
+                        <li><strong>帶領提示：</strong>提示玩家「閃電物資」雖然會讓物資掉落速度變快、增加接取難度，但也是創造極高分數翻倍的最佳契機！</li>
                     </ul>
                 `
             },
             game05: {
-                title: "🧠 智慧大挑戰 - 遊戲與講解指南",
+                title: "🧠 智慧大挑戰 - 規則與講解指南",
                 content: `
-                    <div class="section-title">📌 遊戲簡介</div>
-                    <p>高階情境解謎與資源分配遊戲，培養邏輯思考以及對社會邊緣家庭困境的同理心。</p>
+                    <div class="section-title">📌 遊戲簡介與形式</div>
+                    <p>專為 <span class="highlight">國小學童</span> 設計的實體與線上互動遊戲。</p>
                     
-                    <div class="section-title">🎮 基本玩法</div>
+                    <div class="section-title">🎮 遊戲玩法</div>
                     <ul class="info-list">
-                        <li>關卡會給予特定的「受助家庭情境」（例如：有嬰幼兒的單親家庭、患病長者的家庭）。</li>
-                        <li>玩家需在有限預算與物資配額內，配置最合適的食物箱組合。</li>
+                        <li>採用 <span class="highlight">紅綠現場站隊</span> 的互動方式進行知識大亂鬥。</li>
+                        <li>題目呈現後，學員依據自己的判斷，現場移動站隊至紅區或綠區進行二選一回答，現場氣氛熱烈且富教育意義。</li>
                     </ul>
 
-                    <div class="section-title">💯 得分機制</div>
+                    <div class="section-title">💡 關主帶領與講解技巧</div>
                     <ul class="info-list">
-                        <li><span class="highlight">需求契合度：</span>提供的物資完全滿足該家庭的營養與生活特殊需求，獲得滿分 100 分。</li>
-                        <li><span class="highlight">資源效益：</span>無浪費任何預算或物資，加獎勵分 50 分。</li>
-                    </ul>
-
-                    <div class="section-title">⏱️ 讀秒機制</div>
-                    <ul class="info-list">
-                        <li>無嚴格倒數，每關建議思考時間 <span class="highlight">2-3 分鐘</span>，重視思考品質而非速度。</li>
-                    </ul>
-
-                    <div class="section-title">💡 關主/帶領者講解技巧</div>
-                    <ul class="info-list">
-                        <li><strong>開場語：</strong>「每一個接受幫助的家庭都有不同的困難。這關需要大家發揮智慧與愛心，為他們量身打造最需要的幫助！」</li>
-                        <li><strong>引導重點：</strong>遊戲後可進行深度分享，讓參與者理解安得烈「客製化食物箱（如嬰兒箱、長青箱）」的用心。</li>
+                        <li><strong>帶領提示：</strong>適合現場帶活動使用！關主可於兩隊站定後開獎，並針對題目進行簡短的教育宣導與解說。</li>
                     </ul>
                 `
             }
         };
 
-        // 開啟彈窗
         function openModal(gameKey) {
             const data = gameRules[gameKey];
             if (data) {
@@ -564,19 +540,16 @@
             }
         }
 
-        // 關閉彈窗
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        // 點擊背景遮罩關閉
         function closeModalOnOverlay(event) {
             if (event.target.id === 'modalOverlay') {
                 closeModal();
             }
         }
 
-        // 支援 Esc 鍵關閉彈窗
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();
